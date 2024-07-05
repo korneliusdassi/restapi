@@ -4,8 +4,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from bukus.models import Bukus
 from bukus.serializers import BukusSerializer
+from django.views.decorators.csrf import csrf_exempt
 
-# @csrf_exempt
+@csrf_exempt
 @api_view(['GET','POST'])
 def bukus_list(request):
     if request.method == 'GET':
@@ -20,6 +21,7 @@ def bukus_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@csrf_exempt
 @api_view(['GET','PUT','DELETE'])
 def bukus_detail(request,id):
     try:
